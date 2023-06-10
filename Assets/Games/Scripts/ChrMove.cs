@@ -20,19 +20,25 @@ public class ChrMove : MonoBehaviour
     }
     private void MoveUpdate()
     {
+        
+
         if (Input.GetKey(KeyCode.A))
         {
-            if (transform.position.z >= 35.68f) return;
+            if (!Managers.instance.gameplayManager.cameraInside) return;
+
+            if (transform.position.z >= -8.799999) return;
             Run();
             transform.Translate(0, 0, speed * Time.deltaTime);
-            character.transform.eulerAngles = Vector3.Lerp(character.transform.eulerAngles, new Vector3(character.transform.eulerAngles.x, 0, character.transform.eulerAngles.z), 5 * Time.deltaTime);
+            character.transform.eulerAngles = Vector3.Lerp(character.transform.eulerAngles, new Vector3(character.transform.eulerAngles.x, 0, character.transform.eulerAngles.z), 3 * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            if (transform.position.z <= -35.81f) return;
+            if (!Managers.instance.gameplayManager.cameraInside) return;
+
+            if (transform.position.z <= -81.1f) return;
             Run();
             transform.Translate(0, 0, -speed * Time.deltaTime);
-            character.transform.eulerAngles = Vector3.Lerp(character.transform.eulerAngles, new Vector3(character.transform.eulerAngles.x, 180, character.transform.eulerAngles.z), 5 * Time.deltaTime);
+            character.transform.eulerAngles = Vector3.Lerp(character.transform.eulerAngles, new Vector3(character.transform.eulerAngles.x, 180, character.transform.eulerAngles.z), 3 * Time.deltaTime);
         }
         else
         {
@@ -55,7 +61,7 @@ public class ChrMove : MonoBehaviour
             yield return null;
         }
     }
-    private void FalseAllAnim()
+    public void FalseAllAnim()
     {
         anim.SetBool("run", false);
     }
