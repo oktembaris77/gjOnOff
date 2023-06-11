@@ -24,21 +24,23 @@ public class ChrMove : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            if (!Managers.instance.gameplayManager.cameraInside) return;
+            //if (!Managers.instance.gameplayManager.cameraInside) return;
 
             if (transform.position.z >= -8.799999) return;
             Run();
             transform.Translate(0, 0, speed * Time.deltaTime);
             character.transform.eulerAngles = Vector3.MoveTowards(character.transform.eulerAngles, new Vector3(character.transform.eulerAngles.x, 0, character.transform.eulerAngles.z), 500 * Time.deltaTime);
+            Managers.instance.soundManager.PlayOneShotSound(0, Managers.instance.soundManager.effect1as);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            if (!Managers.instance.gameplayManager.cameraInside) return;
+            //if (!Managers.instance.gameplayManager.cameraInside) return;
 
             if (transform.position.z <= -81.1f) return;
             Run();
             transform.Translate(0, 0, -speed * Time.deltaTime);
             character.transform.eulerAngles = Vector3.MoveTowards(character.transform.eulerAngles, new Vector3(character.transform.eulerAngles.x, 180, character.transform.eulerAngles.z), 500 * Time.deltaTime);
+            Managers.instance.soundManager.PlayOneShotSound(0, Managers.instance.soundManager.effect1as);
         }
         else
         {
@@ -51,7 +53,7 @@ public class ChrMove : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if(Managers.instance.gameplayManager.doorOpen)
-                Managers.instance.uiManager.    CloseDoorButton();
+                Managers.instance.uiManager.CloseDoorButton();
             }
 
             if (Managers.instance.gameplayManager.doorOpen)
@@ -80,7 +82,7 @@ public class ChrMove : MonoBehaviour
             }
 
 
-            if (Managers.instance.gameplayManager.waterTankBroken)
+            if (true || Managers.instance.gameplayManager.waterTankBroken)
             {
                 Managers.instance.uiManager.openCloseButtons.SetActive(true);
                 return;
@@ -108,7 +110,7 @@ public class ChrMove : MonoBehaviour
             }
 
 
-            if (Managers.instance.gameplayManager.oxygenTankBroken)
+            if (true || Managers.instance.gameplayManager.oxygenTankBroken)
             {
                 Managers.instance.uiManager.openCloseButtons.SetActive(true);
                 return;
@@ -136,7 +138,7 @@ public class ChrMove : MonoBehaviour
             }
 
 
-            if (Managers.instance.gameplayManager.waterPipesBroken)
+            if (true || Managers.instance.gameplayManager.waterPipesBroken)
             {
                 Managers.instance.uiManager.openCloseButtons.SetActive(true);
                 return;

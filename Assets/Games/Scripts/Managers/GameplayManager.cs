@@ -29,7 +29,7 @@ public class GameplayManager : MonoBehaviour
     public Transform oxygenPipes;
 
     //Repair
-    public bool waterPipesBroken = false;
+    public bool waterPipesBroken = false; //no water pipes!! -> Electric fuse !!
     public bool oxygenTankBroken = false;
     public bool waterTankBroken = false;
 
@@ -38,11 +38,15 @@ public class GameplayManager : MonoBehaviour
     public float waterTankTime = 0.0f;
 
     public float doorTime = 0.0f;
-
     public int actionId = -1;
-
     public GameObject[] warnings;
 
+    //
+
+    public float water = 100;
+    public float oxygen = 100;
+
+    public bool gameOver = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,8 +61,13 @@ public class GameplayManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        EndGame();
+
+        if (gameOver) return;
         CameraPosControl();
         WarningsActivity();
+        ResourceUpdate();
+        BarUpdate();
     }
     private void CameraPosControl()
     {
@@ -75,6 +84,28 @@ public class GameplayManager : MonoBehaviour
         warnings[0].SetActive(waterPipesBroken);
         warnings[1].SetActive(oxygenTankBroken);
         warnings[2].SetActive(waterTankBroken);
+    }
+    private void ResourceUpdate()
+    {
+            if (!waterTankBroken && !waterPipesBroken)
+                water += Time.deltaTime * 7;
+            else water -= Time.deltaTime * 7;
+
+            if (!oxygenTankBroken && !waterPipesBroken)
+                oxygen += Time.deltaTime * 7;
+            else oxygen -= Time.deltaTime * 7;
+    }
+    private void BarUpdate()
+    {
+        Managers.instance.uiManager.waterBar.GetComponent<RectTransform>().sizeDelta = new Vector2(22.168f, water * 269.7f / 100);
+        Managers.instance.uiManager.oxygenBar.GetComponent<RectTransform>().sizeDelta = new Vector2(22.168f, oxygen * 269.7f / 100);
+    }
+    private void EndGame()
+    {
+        if(water >= 180 || oxygen >= 180)
+        {
+            gameOver = true;
+        }
     }
     IEnumerator CameraPosUpdate()
     {
@@ -181,7 +212,9 @@ public class GameplayManager : MonoBehaviour
 
             doorTime = Random.Range(5, 15);
             yield return new WaitForSeconds(doorTime);
-            Managers.instance.uiManager.CloseDoorButton();
+
+            if (!Managers.instance.gameplayManager.doorOpen)
+                Managers.instance.uiManager.CloseDoorButton();
 
             yield return null;
         }
