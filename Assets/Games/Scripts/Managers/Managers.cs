@@ -7,12 +7,14 @@ public class Managers : MonoBehaviour
     public static Managers instance;
 
     public GameplayManager gameplayManager;
+    public UIManager uiManager;
 
     private void Awake()
     {
         instance = this;
 
         TryGetComponent(out gameplayManager);
+        TryGetComponent(out uiManager);
     }
     // Start is called before the first frame update
     void Start()

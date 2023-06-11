@@ -20,6 +20,7 @@ public class RobotAI : MonoBehaviour
     {
         if (nav.hasPath)
             Walk();
+        else AllFalseAnim();
 
         Patrol();
     }
