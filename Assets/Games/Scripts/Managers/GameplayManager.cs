@@ -40,16 +40,23 @@ public class GameplayManager : MonoBehaviour
     public float doorTime = 0.0f;
     public int actionId = -1;
     public GameObject[] warnings;
+    public float time = 0.0f;
 
     //
+
+    private bool killSound = false;
 
     public float water = 100;
     public float oxygen = 100;
 
     public bool gameOver = false;
+
+    public bool pauseGame = false;
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
+
         StartCoroutine("WaterPipesBroken");
         StartCoroutine("OxygenBroken");
         StartCoroutine("WaterTankBroken");
@@ -61,6 +68,35 @@ public class GameplayManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gameOver) return;
+
+            pauseGame = !pauseGame;
+
+            if (pauseGame) Time.timeScale = 0;
+            else Time.timeScale = 1;
+            Managers.instance.uiManager.pausePanel.SetActive(pauseGame);
+        }
+        if (gameOver)
+        {
+            ChrMove.instance.Die();
+
+            if (!killSound )
+            {
+                Managers.instance.soundManager.PlayOneShotSound(5, Managers.instance.soundManager.effect4as);
+                killSound = true;
+            }
+
+            Managers.instance.uiManager.endPanel.SetActive(true);
+            Managers.instance.uiManager.timeText.text = "Time: " + Mathf.FloorToInt(time);
+            Time.timeScale = 0;
+        }
+
+        time += Time.deltaTime;
+
         EndGame();
 
         if (gameOver) return;
@@ -68,6 +104,13 @@ public class GameplayManager : MonoBehaviour
         WarningsActivity();
         ResourceUpdate();
         BarUpdate();
+
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            oxygen = 100;
+            water = 100;
+
+        }
     }
     private void CameraPosControl()
     {
@@ -102,7 +145,7 @@ public class GameplayManager : MonoBehaviour
     }
     private void EndGame()
     {
-        if(water >= 180 || oxygen >= 180)
+        if(water >= 180 || oxygen >= 180 || water <= 0 || oxygen <= 0)
         {
             gameOver = true;
         }

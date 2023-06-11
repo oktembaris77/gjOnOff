@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
+using TMPro;
 public class UIManager : MonoBehaviour
 {
     public GameObject openDoorButton;
@@ -10,16 +11,30 @@ public class UIManager : MonoBehaviour
 
     public Image waterBar;
     public Image oxygenBar;
+
+    public GameObject creditsPanel;
+    public Slider soundSlider;
+    public AudioSource mainMenuAS;
+
+    public GameObject pausePanel;
+    public GameObject endPanel;
+    public TextMeshProUGUI timeText;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (PlayerPrefs.GetFloat("soundvolume") == 0.0f)
+            PlayerPrefs.SetFloat("soundvolume", 0.2f);
+
+        if (mainMenuAS != null)
+        {
+            mainMenuAS.volume = PlayerPrefs.GetFloat("soundvolume");
+            soundSlider.value = PlayerPrefs.GetFloat("soundvolume");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-      
     }
     public void CloseDoorButton()
     {
@@ -70,6 +85,28 @@ public class UIManager : MonoBehaviour
                 Managers.instance.gameplayManager.waterTankBroken = false;
                 break;
         }
+    }
+    public void StartGameButton()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void GotoMainMenuButton()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void CreditsButton(bool act)
+    {
+        creditsPanel.SetActive(act);
+    }
+    public void ExitButton()
+    {
+        Application.Quit();
+    }
+
+    public void SoundVolume()
+    {
+        PlayerPrefs.SetFloat("soundvolume", soundSlider.value);
+        mainMenuAS.volume = soundSlider.value;
     }
 }
 

@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class ChrMove : MonoBehaviour
 {
+    public static ChrMove instance;
     public GameObject character;
     public Animator anim;
     public float speed = 1.0f;
+    private void Awake()
+    {
+        instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -172,5 +177,10 @@ public class ChrMove : MonoBehaviour
     private void Run()
     {
         anim.SetBool("run", true);
+    }
+    public void Die()
+    {
+        FalseAllAnim();
+        anim.SetBool("die", true);
     }
 }

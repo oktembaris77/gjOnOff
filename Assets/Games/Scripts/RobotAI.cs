@@ -9,6 +9,8 @@ public class RobotAI : MonoBehaviour
     public Animator anim;
     public NavMeshAgent nav;
     [SerializeField] int patrolPointIndex = 0;
+
+    public float stopDoorTime = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,25 @@ public class RobotAI : MonoBehaviour
                 patrolPointIndex++;
             }
         }
+        if(name =="Robot")
+        {
+          //  Debug.Log("cc: " + Managers.instance.gameplayManager.patrolPointParent.childCount+  " " + Vector3.Distance(transform.position, Managers.instance.gameplayManager.patrolPointParent.GetChild(patrolPointIndex).position));
+        }
+        if(patrolPointIndex == Managers.instance.gameplayManager.patrolPointParent.childCount - 2 && Vector3.Distance(transform.position, Managers.instance.gameplayManager.patrolPointParent.GetChild(patrolPointIndex).position) < 10.0f &&
+            !Managers.instance.gameplayManager.doorOpen)
+        {
+            patrolPointIndex = 0;
+        }
+
+        if(patrolPointIndex == Managers.instance.gameplayManager.patrolPointParent.childCount - 1)
+        {
+            stopDoorTime += Time.deltaTime;
+
+            if(stopDoorTime >= 5)
+            {
+                patrolPointIndex = 0;
+            }
+        }
     }
     public void AllFalseAnim()
     {
@@ -48,5 +69,12 @@ public class RobotAI : MonoBehaviour
     {
         AllFalseAnim();
         anim.SetBool("walk", true);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("EndGameTrigger"))
+        {
+            Managers.instance.gameplayManager.gameOver = true;
+        }
     }
 }
