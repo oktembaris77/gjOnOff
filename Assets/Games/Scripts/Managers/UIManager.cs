@@ -72,3 +72,9 @@ public class UIManager : MonoBehaviour
         }
     }
 }
+
+/*
+ Music by Eric Matyas
+
+www.soundimage.org
+ */

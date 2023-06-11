@@ -70,12 +70,12 @@ public class ChrMove : MonoBehaviour
         {
             Managers.instance.gameplayManager.actionId = 2;
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.R))
             {
-                if (Managers.instance.gameplayManager.waterTankBroken)
+                if (!Managers.instance.gameplayManager.waterTankBroken)
                     Managers.instance.uiManager.CloseButton();
             }
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 if (Managers.instance.gameplayManager.waterTankBroken)
                     Managers.instance.uiManager.OpenButton();
@@ -98,12 +98,12 @@ public class ChrMove : MonoBehaviour
         {
             Managers.instance.gameplayManager.actionId = 1;
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.R))
             {
-                if (Managers.instance.gameplayManager.oxygenTankBroken)
+                if (!Managers.instance.gameplayManager.oxygenTankBroken)
                     Managers.instance.uiManager.CloseButton();
             }
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 if (Managers.instance.gameplayManager.oxygenTankBroken)
                     Managers.instance.uiManager.OpenButton();
@@ -126,12 +126,12 @@ public class ChrMove : MonoBehaviour
         {
             Managers.instance.gameplayManager.actionId = 0;
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.R))
             {
-                if (Managers.instance.gameplayManager.waterPipesBroken)
+                if (!Managers.instance.gameplayManager.waterPipesBroken)
                     Managers.instance.uiManager.CloseButton();
             }
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 if (Managers.instance.gameplayManager.waterPipesBroken)
                     Managers.instance.uiManager.OpenButton();
