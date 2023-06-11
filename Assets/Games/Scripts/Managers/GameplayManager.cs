@@ -14,6 +14,9 @@ public class GameplayManager : MonoBehaviour
     public GameObject outsideLights;
 
     public GameObject shalterCeil;
+
+    //Robot patrol points
+    public Transform patrolPointParent;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,16 +44,16 @@ public class GameplayManager : MonoBehaviour
         {
             if(cameraSide)
             {
-                cameraObj.transform.position = Vector3.MoveTowards(cameraObj.transform.position, insideCameraPos.position,50 * Time.deltaTime);
-                cameraObj.transform.eulerAngles = Vector3.MoveTowards(cameraObj.transform.eulerAngles, insideCameraPos.eulerAngles, 50 * Time.deltaTime);
+                cameraObj.transform.position = Vector3.MoveTowards(cameraObj.transform.position, insideCameraPos.position,80 * Time.deltaTime);
+                cameraObj.transform.eulerAngles = Vector3.MoveTowards(cameraObj.transform.eulerAngles, insideCameraPos.eulerAngles, 80 * Time.deltaTime);
             }
             else
             {
                 shalterCeil.SetActive(false);
                 cameraInside = false;
                 outsideLights.SetActive(true);
-                cameraObj.transform.position = Vector3.MoveTowards(cameraObj.transform.position, outsideCameraPos.position, 50 * Time.deltaTime);
-                cameraObj.transform.eulerAngles = Vector3.MoveTowards(cameraObj.transform.eulerAngles, outsideCameraPos.eulerAngles, 50 * Time.deltaTime);
+                cameraObj.transform.position = Vector3.MoveTowards(cameraObj.transform.position, outsideCameraPos.position, 80 * Time.deltaTime);
+                cameraObj.transform.eulerAngles = Vector3.MoveTowards(cameraObj.transform.eulerAngles, outsideCameraPos.eulerAngles, 80 * Time.deltaTime);
             }
 
             if((cameraSide && Vector3.Distance(cameraObj.transform.position, insideCameraPos.position) <= 1) || (!cameraSide && Vector3.Distance(cameraObj.transform.position, outsideCameraPos.position) <= 1))

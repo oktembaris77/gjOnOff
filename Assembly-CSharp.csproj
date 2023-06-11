@@ -62,6 +62,9 @@
     <Compile Include="Assets\Games\Scripts\RobotAI.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Games\Shaders\ToonShader.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>D:\Unity\Hub\Editor\2022.1.10f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
