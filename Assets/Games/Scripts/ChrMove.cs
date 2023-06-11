@@ -29,7 +29,7 @@ public class ChrMove : MonoBehaviour
             if (transform.position.z >= -8.799999) return;
             Run();
             transform.Translate(0, 0, speed * Time.deltaTime);
-            character.transform.eulerAngles = Vector3.Lerp(character.transform.eulerAngles, new Vector3(character.transform.eulerAngles.x, 0, character.transform.eulerAngles.z), 3 * Time.deltaTime);
+            character.transform.eulerAngles = Vector3.MoveTowards(character.transform.eulerAngles, new Vector3(character.transform.eulerAngles.x, 0, character.transform.eulerAngles.z), 300 * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.D))
         {
@@ -38,7 +38,7 @@ public class ChrMove : MonoBehaviour
             if (transform.position.z <= -81.1f) return;
             Run();
             transform.Translate(0, 0, -speed * Time.deltaTime);
-            character.transform.eulerAngles = Vector3.Lerp(character.transform.eulerAngles, new Vector3(character.transform.eulerAngles.x, 180, character.transform.eulerAngles.z), 3 * Time.deltaTime);
+            character.transform.eulerAngles = Vector3.MoveTowards(character.transform.eulerAngles, new Vector3(character.transform.eulerAngles.x, 180, character.transform.eulerAngles.z), 300 * Time.deltaTime);
         }
         else
         {

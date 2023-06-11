@@ -10,10 +10,14 @@ public class GameplayManager : MonoBehaviour
 
     public bool cameraSide = false;
     public bool cameraInside = false;
+
+    public GameObject outsideLights;
+
+    public GameObject shalterCeil;
     // Start is called before the first frame update
     void Start()
     {
-        
+        shalterCeil.SetActive(true);
     }
 
     // Update is called once per frame
@@ -42,14 +46,26 @@ public class GameplayManager : MonoBehaviour
             }
             else
             {
+                shalterCeil.SetActive(false);
                 cameraInside = false;
+                outsideLights.SetActive(true);
                 cameraObj.transform.position = Vector3.MoveTowards(cameraObj.transform.position, outsideCameraPos.position, 50 * Time.deltaTime);
                 cameraObj.transform.eulerAngles = Vector3.MoveTowards(cameraObj.transform.eulerAngles, outsideCameraPos.eulerAngles, 50 * Time.deltaTime);
             }
 
             if((cameraSide && Vector3.Distance(cameraObj.transform.position, insideCameraPos.position) <= 1) || (!cameraSide && Vector3.Distance(cameraObj.transform.position, outsideCameraPos.position) <= 1))
             {
-                if (cameraSide) cameraInside = true;
+                if (cameraSide)
+                {
+                    cameraInside = true;
+                    outsideLights.SetActive(false);
+                    shalterCeil.SetActive(true);
+                }
+                else
+                {
+                    
+                }
+
 
                 StopCoroutine("CameraPosUpdate");
             }

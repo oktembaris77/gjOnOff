@@ -59,6 +59,7 @@
     <Compile Include="Assets\Games\Scripts\ChrMove.cs" />
     <Compile Include="Assets\Games\Scripts\Managers\GameplayManager.cs" />
     <Compile Include="Assets\Games\Scripts\Managers\Managers.cs" />
+    <Compile Include="Assets\Games\Scripts\RobotAI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
